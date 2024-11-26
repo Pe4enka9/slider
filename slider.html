@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .slider_container {
+            width: 500px;
+            height: 500px;
+
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDCsqRYLAFDdL4Ix_AHai7kNVyoPV9Ssv1xg&s') no-repeat;
+            background-size: cover;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            transition: .5s;
+        }
+
+        button {
+            border: none;
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #00000069;
+            color: rgb(156, 156, 156);
+
+            transition: .25s;
+        }
+
+        button:hover {
+            background-color: #000000ae;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="slider_container" data-index="1">
+    <button id="prev" onclick="prev()"><<</button>
+    <button id="next" onclick="next()">>></button>
+</div>
+
+
+<script>
+    const images = [
+        {
+            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDCsqRYLAFDdL4Ix_AHai7kNVyoPV9Ssv1xg&s',
+            alt: 'cat 1'
+        },
+        {
+            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZPRo5ILl4Tew10m2HkWjfk8vgdhNwdxzvbw&s',
+            alt: 'cat 2'
+        },
+        {
+            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSN5kyGXRsJTnCvfM371Ycg8u7k9viw1gW-g&s',
+            alt: 'cat 3'
+        },
+    ];
+
+    let sliderContainer = document.querySelector('.slider_container');
+
+    function next() {
+        let indexImages = sliderContainer.dataset.index;
+
+        if (+indexImages < images.length) {
+            sliderContainer.dataset.index = ++indexImages;
+            sliderContainer.style.backgroundImage = `url("${images[+indexImages - 1].src}")`;
+        } else {
+            sliderContainer.dataset.index = 1;
+            sliderContainer.style.backgroundImage = `url("${images[0].src}")`;
+        }
+    }
+
+    function prev() {
+        let indexImages = sliderContainer.dataset.index;
+
+        if (+indexImages > 1) {
+            sliderContainer.dataset.index = --indexImages;
+            sliderContainer.style.backgroundImage = `url("${images[+indexImages - 1].src}")`;
+        } else {
+            sliderContainer.dataset.index = images.length;
+            sliderContainer.style.backgroundImage = `url("${images[images.length - 1].src}")`;
+        }
+    }
+
+    function autoSlider() {
+        setInterval(next, 3000)
+    }
+
+    autoSlider();
+</script>
+</body>
+
+</html>
